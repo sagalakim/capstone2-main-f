@@ -43,7 +43,7 @@
                             <td style="width:300px">{{date('M d, Y', strtotime($itinerary->date_from))}} - {{date('M d, Y', strtotime($itinerary->date_to))}}</td>
                             <td style="width:350px">{{$itinerary->status}}</td>
                             @if ($itinerary->approved_by !== null)
-                            <td style="width:350px">{{$itinerary->approver->firstname}}</td>
+                            <td style="width:350px">{{$itinerary->approver->firstname}} </td>
                             @else
                             <td></td>
                             @endif

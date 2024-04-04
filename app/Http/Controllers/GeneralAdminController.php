@@ -14,6 +14,7 @@ use App\Models\LiquidationData;
 use App\Models\ItineraryHead;
 use App\Models\AccomplishmentHead;
 use App\Models\Receipt;
+use App\Models\ReportNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\CSRF;
@@ -157,6 +158,8 @@ class GeneralAdminController extends Controller
             $data->status='Approved';
             $data->approved_by=Auth::user()->id;
             $data->approver_role=Auth::user()->role;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Itinerary approved succesfully.');
         }
@@ -172,6 +175,8 @@ class GeneralAdminController extends Controller
             $data->status='Disapproved';
             $data->approved_by=null;
             $data->approver_role='';
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Itinerary disapproved.');
         }
@@ -188,6 +193,8 @@ class GeneralAdminController extends Controller
             $data->status='Approved';
             $data->approved_by=Auth::user()->id;
             $data->approver_role=Auth::user()->role;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Accomplishment approved succesfully.');
         }
@@ -226,6 +233,8 @@ class GeneralAdminController extends Controller
             $data->status='Disapproved';
             $data->approved_by=null;
             $data->approver_role='';
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Accomplishment disapproved.');
         }
@@ -263,6 +272,8 @@ class GeneralAdminController extends Controller
         if ($data->status !== 'Approved'){
             $data->status='Approved';
             $data->recommending_approval=Auth::user()->id;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Liquidation approved succesfully.');
         }
@@ -277,6 +288,8 @@ class GeneralAdminController extends Controller
         if ($data->status !== 'Approved'){
             $data->status='Disapproved';
             $data->recommending_approval=null;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Liquidation disapproved.');
         }
@@ -889,6 +902,10 @@ class GeneralAdminController extends Controller
 
     public function admin_agent_showitinerarydetails(ItineraryHead $itinerary)
     {
+        $reportget = ReportNotification::where('itinerary_id',$itinerary->id)->first();
+        $report = ReportNotification::find($reportget->id);
+        $report->status = 'viewed';
+        $report->save();
         $data = Itinerary::where('itin_head', $itinerary->id)->where('user_id', $itinerary->user_id)->get();
         return view('admin.userreports.itinerarydetails', compact('itinerary', 'data'));
     }

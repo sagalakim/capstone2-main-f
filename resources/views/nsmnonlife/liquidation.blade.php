@@ -88,12 +88,12 @@
                                     <td><input type='text' style="width:160px;" name="travel_itinerary_to[]" class="form-control" placholder=""></td>
                                     <td><input type='text' name="reference[]" class="form-control" placholder=""></td>
                                     <td><input type='text' name="particulars[]" class="form-control" placholder=""></td>
-                                    <td><input type='number' style="width:80px;" name="transpo[]" class="form-control" placholder=""></td>
-                                    <td><input type='number' style="width:80px;" name="hotel[]" class="form-control" placholder=""></td>
-                                    <td><input type='text' style="width:80px;" name="meals[]" class="form-control" placholder=""></td>
+                                    <td><input type='number' style="width:80px;" name="transpo[]" class="form-control" placeholder="₱"></td>
+                                    <td><input type='number' style="width:80px;" name="hotel[]" class="form-control" placeholder="₱"></td>
+                                    <td><input type='text' style="width:80px;" name="meals[]" class="form-control" placeholder="₱"></td>
                                     <td><input type='text' style="width:80px;" name="sundry[]" class="form-control" placholder=""></td>
-                                    <td><input type='text' style="width:80px;" name="amount[]" class="form-control" placholder=""></td>
-                                    <td><input class="locked" type='text' style="width:100px;" name="row_total[]" class="form-control" value=" --- " placholder=""></td>
+                                    <td><input type='text' style="width:80px;" name="amount[]" class="form-control" placeholder="₱"></td>
+                                    <td><input class="locked" type='text' style="width:100px;" name="row_total[]" class="form-control" value="₱ --- " placholder=""></td>
                                     <th><a href="javascript:void(0)" class="btn btn-danger deleteRow">-</a></th>
                                 </tr>
                             </tbody>
@@ -104,13 +104,13 @@
                         <div class="col-md-10">
                             <div class="input-group mb-2">
                                 <span class="input-group-text fw-bold">TOTAL</span>
-                                <input type='text' name="total" class="form-control locked" value="   ---   " placholder="Enter Municipality">
+                                <input type='text' name="total" class="form-control locked" value="₱  ---   " placholder="Enter Municipality">
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="input-group mb-2">
                                 <span class="input-group-text fw-bold">CA</span>
-                                <input type='text' name="cash_advance" class="form-control" placholder="Enter Municipality">
+                                <input type='text' name="cash_advance" class="form-control" placeholder="₱">
                             </div>
                         </div>
                         <div class="col-md-10">

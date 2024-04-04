@@ -198,7 +198,7 @@ class AgentItineraryController extends Controller
                     'itinerary_id' => $Itin_head->id,
                     'accomplishment_id' => null,
                     'liquidation_id' => null,
-                    'status' => 'unapproved',
+                    'status' => 'view',
                 ]);
 
                 session()->flash('already', 'Itineraries Created Successfully.');

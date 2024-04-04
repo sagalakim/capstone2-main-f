@@ -14,6 +14,7 @@ use App\Models\LiquidationData;
 use App\Models\ItineraryHead;
 use App\Models\AccomplishmentHead;
 use App\Models\Receipt;
+use App\Models\ReportNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\CSRF;
@@ -108,6 +109,8 @@ class UserItineraryReportsController extends Controller
             $data->status='Approved';
             $data->approved_by=Auth::user()->id;
             $data->approver_role=Auth::user()->role;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Itinerary approved succesfully.');
         }
@@ -123,6 +126,8 @@ class UserItineraryReportsController extends Controller
             $data->status='Disapproved';
             $data->approved_by=null;
             $data->approver_role='';
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Itinerary disapproved.');
         }
@@ -139,6 +144,8 @@ class UserItineraryReportsController extends Controller
             $data->status='Approved';
             $data->approved_by=Auth::user()->id;
             $data->approver_role=Auth::user()->role;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Accomplishment approved succesfully.');
         }
@@ -177,6 +184,8 @@ class UserItineraryReportsController extends Controller
             $data->status='Disapproved';
             $data->approved_by=null;
             $data->approver_role='';
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Accomplishment disapproved.');
         }
@@ -214,6 +223,8 @@ class UserItineraryReportsController extends Controller
         if ($data->status !== 'Approved'){
             $data->status='Approved';
             $data->recommending_approval=Auth::user()->id;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Liquidation approved succesfully.');
         }
@@ -228,6 +239,8 @@ class UserItineraryReportsController extends Controller
         if ($data->status !== 'Approved'){
             $data->status='Disapproved';
             $data->recommending_approval=null;
+            $carbon = Carbon::now()->setTimezone('Asia/Manila');
+            $data->updated_at = $carbon;
             $data->save();
             return redirect()->back()->with('success', 'Liquidation disapproved.');
         }
@@ -470,6 +483,13 @@ class UserItineraryReportsController extends Controller
             $itineraries = DB::table('itineraries')->insert($datasave);
         }
     
+        ReportNotification::create([
+            'user_id' => $Itin_head->user_id,
+            'itinerary_id' => $Itin_head->id,
+            'accomplishment_id' => null,
+            'liquidation_id' => null,
+            'status' => 'view',
+        ]);
         session()->flash('already', 'Itineraries Created Successfully.');
 
         return response()->json(['success' => true]);

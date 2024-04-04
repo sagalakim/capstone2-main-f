@@ -77,14 +77,14 @@
                         <th>Approver's Role</th>
                         <th>See more</th>
                     </tr>
-
+                   
                     @if ($itinerary->count()>0)
                         @foreach($itinerary as $itinerary)
                         <tr> 
                             <td style="width:300px">{{date('M d, Y', strtotime($itinerary->date_from))}} - {{date('M d, Y', strtotime($itinerary->date_to))}}</td>
                             <td >{{$itinerary->status}}</td>
                             @if ($itinerary->approved_by !== null)
-                            <td style="width:350px">{{$itinerary->approver->firstname}}</td>
+                            <td style="width:350px">{{$itinerary->approver->firstname}} on {{date('M d, Y h:i A', strtotime($itinerary->updated_at))}}</td>
                             @else
                             <td></td>
                             @endif

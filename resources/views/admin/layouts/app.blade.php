@@ -266,36 +266,45 @@
                             Notifications <i class="fas fa-bell"></i>
                             </a>
                             <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdown" style="width:400px;margin-left:-200px; max-height: 400px; overflow-y: auto;">
-                                <li > <div style="width:380px;margin-left:5px;" class="alert alert-primary d-flex align-items-center" role="alert">
-                                    <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                                    <div>
-                                        An example alert with an icon <a href="hehe" style="margin-left:60px;">View</a>
-                                    </div>
-                                    </div>
-                                </li>
-                                <li ><div style="width:380px;margin-left:5px;" class="alert alert-primary d-flex align-items-center" role="alert">
-                                    <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                                    <div>
-                                        An example alert with an icon <a href="hehe" style="margin-left:60px;">View</a>
-                                    </div>
-                                    </div></a>
-                                </li>
-                                <li>
-                                    <div style="width:380px;margin-left:5px;" class="alert alert-success d-flex align-items-center" role="alert">
-                                    <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                                    <div>
-                                        An example success alert with an icon
-                                    </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div style="width:380px;margin-left:5px;" class="alert alert-success d-flex align-items-center" role="alert">
-                                    <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                                    <div>
-                                        An example success alert with an icon
-                                    </div>
-                                    </div>
-                                </li>
+                                @if($reportsNotification->count()>0)
+                                    @foreach($reportsNotification as $reports)
+                                        @if($reports->status == 'view')
+                                        <li > <div style="position:relative;width:380px;margin-left:5px;" class="alert alert-primary d-flex align-items-center" role="alert">
+                                            <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                            <div>
+                                                Itinerary Report By {{$reports->owner->firstname}}  <a href="{{ route('admin_agent_showitinerarydetails', ['itinerary' => $reports->itinerary_id]) }}" style="margin-left:50px;"><i class="fas fa-eye"></i></a>
+                                            </div>
+                                            </div>
+                                        </li>
+                                        @elseif($reports->report->status != 'Pending' && $reports->report->status != 'Disapproved')
+                                        <li>
+                                            <div style="width:380px;margin-left:5px;" class="alert alert-success d-flex align-items-center" role="alert">
+                                            <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                            <div>
+                                                Itinerary Report By {{$reports->owner->firstname}} <a href="{{ route('admin_agent_showitinerarydetails', ['itinerary' => $reports->itinerary_id]) }}" style="margin-left:50px; color:green;"><i class="fas fa-eye"></i></a>
+                                            </div>
+                                            </div>
+                                        </li>
+                                        @elseif($reports->report->status == 'Disapproved')
+                                        <li>
+                                            <div style="width:380px;margin-left:5px;" class="alert alert-danger d-flex align-items-center" role="alert">
+                                                <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                <div>
+                                                    Itinerary Report By {{$reports->owner->firstname}} <a href="{{ route('admin_agent_showitinerarydetails', ['itinerary' => $reports->itinerary_id]) }}" style="margin-left:50px; color:red;"><i class="fas fa-eye"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @else
+                                        <li > <div style="width:380px;margin-left:5px;" class="alert alert-secondary d-flex align-items-center" role="alert">
+                                            <svg class="bi flex-shrink-0 me-2" width="20" height="20" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                            <div>
+                                                Itinerary Report By {{$reports->owner->firstname}} <a href="{{ route('admin_agent_showitinerarydetails', ['itinerary' => $reports->itinerary_id]) }}" style="margin-left:50px; color:gray;"><i class="fas fa-eye"></i></a>
+                                            </div>
+                                            </div>
+                                        </li>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 
                             </ul>
                         </li>
